@@ -2,6 +2,7 @@
 
 a simple count down websitethat is Writen by Js
 
+A show [case](https://countdown-one.vercel.app/)
 # How to use
 
 1. clone the code 
