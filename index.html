@@ -1,0 +1,84 @@
+﻿<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <script src="./jquery.3.3.1.min.js"></script>
+    <link href="./flipclock.0.7.8.min.css" rel="stylesheet">
+    <script src="./flipclock.0.7.8.min.js"></script>
+    <title>DDL Countdown</title>
+    <style>
+        html,
+        body {
+            background-color: lightslategray;
+        }
+        
+        .column {
+            float: left;
+        }
+        
+        .column.left {
+            width: 50%;
+        }
+        
+        .column.right {
+            width: 50%;
+        }
+        
+        .row:after {
+            content: "";
+            display: table;
+            clear: both;
+        }
+    </style>
+</head>
+
+<body>
+
+
+    <div class="row">
+        <div class="column left"> </div>
+        <div class="column right"> </div>
+
+    </div>
+    <span>@Jerry Xu</span>
+
+    <script>
+        var text = '{ "data" : [' +
+            '{ "name":"TBD" , "ddl":"" },' +
+            '{ "name":"TBD" , "ddl":"" },' +
+            '{ "name":"TBD" , "ddl":"" },' +
+            '{ "name":"TBD" , "ddl":"" },' +
+
+
+            '{ "name":"test " , "ddl":"2020-11-30 00:00:00" } ]}';
+        obj = JSON.parse(text);
+
+        var nowDate = new Date()
+        $(document).ready(() => {
+
+            for (var i in obj.data) {
+                var theDateWeBegan = new Date(Date.parse(obj.data[i].ddl.replace(/-/g, "/")));
+                var secOfDate = (theDateWeBegan - nowDate) / 1000
+                    //console.log(obj.data[i].name + ' ' + secOfDate)
+
+                if (i % 2 == 0) {
+                    $(".column.right").prepend("<h2>" + obj.data[i].name + "</h2> <p test class=\"clock" + i + "\" style=\"width: 620px;\"></p>")
+
+                    //$(".clock").prepend("test")
+                } else
+                    $(".column.left").prepend("<h2>" + obj.data[i].name + "</h2> <p test class=\"clock" + i + "\" style=\"width: 620px;\"></p>")
+
+                $('.clock' + i).FlipClock(secOfDate, {
+                    clockFace: 'DailyCounter',
+                    countdown: true,
+                    autoStart: true
+                })
+            }
+        })
+    </script>
+</body>
+
+</html>
